@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-const protectedRoute = async (req, resizeBy, next) => {
+const protectedRoute = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
 
@@ -9,7 +9,7 @@ const protectedRoute = async (req, resizeBy, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) return res.status(401).json({ message: "Token is not valid" });
 

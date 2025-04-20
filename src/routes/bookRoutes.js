@@ -38,7 +38,7 @@ router.post("/", protectedRoute, async (req, res) => {
 router.get("/", protectedRoute, async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const limit = req.query.limit || 5;
+    const limit = req.query.limit || 2;
     const skip = (page - 1) * limit;
     const books = await Book.find()
       .sort({ createdAt: -1 })
